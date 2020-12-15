@@ -1,0 +1,28 @@
+# import requests and json - needed to make an API call
+import requests
+import json
+
+# this is the api endpoint to get a JSON of each department info
+dept_api_url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=zC7WlzjFWu8bzWMsyjgTSE28qty9XKy1SdcyRetp'
+
+# calling the API with requests
+response = requests.get(dept_api_url)
+# creating a variable called data to hold the json formatted result
+department_data = response.json()
+
+print(type(department_data))
+department_data
+
+# from the JSON above we only need the list with all department "dictionaries" in them
+# we'll store this in a variable called departments
+departments = department_data
+
+# once we have the department information, we can examine how many objects there are in 
+# total for a particular department.
+# this api endpoint also provides a list of object ids which we'll use later to get images
+# here we are examining the first department...
+obj_by_dept_url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=zC7WlzjFWu8bzWMsyjgTSE28qty9XKy1SdcyRetp" + str(1) + '&q=cat'
+response = requests.get(obj_by_dept_url)
+obj_data = response.json()
+
+print(obj_data)
